@@ -8,6 +8,8 @@ import Event from "@mui/icons-material/EventOutlined";
 import Course from "@mui/icons-material/SchoolOutlined";
 import React from "react";
 import "./SideBar.css";
+import { Users } from "../../dummyData";
+import CloseFriend from "../closeFriend/CloseFriend";
 
 function SideBar() {
   return (
@@ -54,38 +56,9 @@ function SideBar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img
-              src="/assets/person/2.jpeg"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">John Cena</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="/assets/person/2.jpeg"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">John Cena</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="/assets/person/2.jpeg"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">John Cena</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="/assets/person/2.jpeg"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">John Cena</span>
-          </li>
+          {Users.map((user) => {
+            return <CloseFriend key={user.id} user={user} />;
+          })}
         </ul>
       </div>
     </div>
