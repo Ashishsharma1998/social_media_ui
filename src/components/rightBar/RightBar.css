@@ -37,3 +37,50 @@
   margin: 0;
   list-style: none;
 }
+
+.rightbarTitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.rightbarInfoKey {
+  font-weight: 500;
+  font-size: 15px;
+  color: #555;
+  margin-right: 10px;
+}
+
+.rightbarInfoValue {
+  font-weight: 300;
+  color: #555;
+}
+
+.rightbarInfo {
+  margin-bottom: 10px;
+}
+.rightbarInfoItem {
+  margin-bottom: 10px;
+}
+
+.rightbarFollowingImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.rightbarFollowings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.rightbarFollowing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
