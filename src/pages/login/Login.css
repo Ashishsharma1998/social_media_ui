@@ -13,6 +13,11 @@
   display: flex;
 }
 
+.progress {
+  color: white !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+}
 .loginLeft,
 .loginRight {
   flex: 1;
@@ -63,6 +68,14 @@
   font-weight: 500;
   border: none;
   cursor: pointer;
+}
+
+.loginButton:focus {
+  outline: none;
+}
+
+.loginButton:disabled {
+  cursor: not-allowed;
 }
 
 .loginForget {

@@ -1,12 +1,15 @@
 import { Chat, NotificationAdd, Person, Search } from "@mui/icons-material";
 import React from "react";
 import "./TopBar.css";
+import { Link } from "react-router-dom";
 
 export default function TopBar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">XpressSocial</span>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">XpressSocial</span>
+        </Link>
       </div>
 
       <div className="topbarCenter">
