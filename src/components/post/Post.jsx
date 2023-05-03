@@ -14,7 +14,9 @@ function Post({ data }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/user?userId=${data.userId}`);
+      const res = await axios.get(
+        `http://localhost:3001/api/user?userId=${data.userId}`
+      );
       console.log(res);
       setUser(res.data);
     };
@@ -33,7 +35,11 @@ function Post({ data }) {
           <div className="postTopLeft">
             <Link to={`profile/${user.username}`}>
               <img
-                src={user.profilePicture || Users[0].profilePicture}
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "/person/1.jpeg"
+                }
                 alt=""
                 className="postProfileImg"
               />

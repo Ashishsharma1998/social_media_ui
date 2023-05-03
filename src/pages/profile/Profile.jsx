@@ -10,11 +10,14 @@ import { useParams } from "react-router-dom";
 function Profile() {
   const [user, setUser] = useState({});
   const params = useParams();
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // console.log(params);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/user?username=${params.username}`);
+      const res = await axios.get(
+        `http://localhost:3001/api/user?username=${params.username}`
+      );
       setUser(res.data);
     };
     fetchUser();
@@ -29,12 +32,12 @@ function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src={user.coverPicture || "/assets/post/2.jpeg"}
+                src={PF + user.coverPicture || PF + "/post/2.jpeg"}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src={user.profilePicture || "/assets/person/2.jpeg"}
+                src={PF + user.profilePicture || PF + "/person/2.jpeg"}
                 alt=""
                 className="profileUserImg"
               />
