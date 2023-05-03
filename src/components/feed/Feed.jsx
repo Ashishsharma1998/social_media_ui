@@ -15,12 +15,12 @@ function Feed({ username }) {
       const res = username
         ? await axios.get("http://localhost:3001/api/posts/profile/" + username)
         : await axios.get(
-            "http://localhost:3001/api/posts/timeline/" + user._id
+            "http://localhost:3001/api/posts/timeline/" + user?._id
           );
       setPosts(res.data);
     };
     fetchPost();
-  }, [username, user._id]);
+  }, [username, user?._id]);
 
   return (
     <div className="feed">

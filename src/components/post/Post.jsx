@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
 import { Users } from "../../dummyData.js";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Post({ data }) {
   const [like, setLike] = useState(data.likes.length);
   const [isLike, setIsLike] = useState(false);
   const [user, setUser] = useState({});
+  const { user: currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
@@ -23,7 +25,14 @@ function Post({ data }) {
     fetchUser();
   }, [data.userId]);
 
-  const likeHandler = () => {
+  useEffect(() => {
+    setIsLike(data.likes.includes(currentUser?._id));
+  }, [data.likes, currentUser?._id]);
+
+  const likeHandler = async () => {
+    await axios.put("http://localhost:3001/api/posts/" + data._id + "/like", {
+      userId: currentUser?._id,
+    });
     setLike(isLike ? like - 1 : like + 1);
     setIsLike(!isLike);
   };
