@@ -30,9 +30,14 @@ function Post({ data }) {
   }, [data.likes, currentUser?._id]);
 
   const likeHandler = async () => {
-    await axios.put("http://localhost:3001/api/posts/" + data._id + "/like", {
-      userId: currentUser?._id,
-    });
+    try {
+      await axios.put("http://localhost:3001/api/posts/" + data._id + "/like", {
+        userId: currentUser?._id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     setLike(isLike ? like - 1 : like + 1);
     setIsLike(!isLike);
   };
