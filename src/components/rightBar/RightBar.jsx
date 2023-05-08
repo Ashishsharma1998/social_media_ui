@@ -27,21 +27,13 @@ function RightBar({ user }) {
 
   const handleClick = async () => {
     if (followed) {
-      await axios({
-        method: "put",
-        url: `http://localhost:3001/api/user/${user?._id}/unfollow`,
-        data: {
-          userId: currentUser?._id,
-        },
+      await axios.put(`http://localhost:3001/api/user/${user?._id}/unfollow`, {
+        userId: currentUser?._id,
       });
       dispatch({ type: "UNFOLLOW", payload: user?._id });
     } else {
-      await axios({
-        method: "put",
-        url: `http://localhost:3001/api/user/${user?._id}/follow`,
-        data: {
-          userId: currentUser?._id,
-        },
+      await axios.put(`http://localhost:3001/api/user/${user?._id}/follow`, {
+        userId: currentUser?._id,
       });
       dispatch({ type: "FOLLOW", payload: user?._id });
     }
