@@ -5,6 +5,7 @@ import Register from "./pages/register/Register.jsx";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./components/context/AuthContext.js";
+import Messenger from "./pages/messenger/Messenger.jsx";
 function App() {
   const { user } = useContext(AuthContext);
 
@@ -34,6 +35,10 @@ function App() {
         <Route
           path="/register"
           element={user ? <Navigate to="/" replace /> : <Register />}
+        />
+        <Route
+          path="/messenger"
+          element={!user ? <Navigate to="/" replace /> : <Messenger />}
         />
       </Routes>
     </BrowserRouter>
