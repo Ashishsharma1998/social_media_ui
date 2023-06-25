@@ -64,3 +64,11 @@
   padding: 10px;
   height: 100%;
 }
+
+.noTextConversation {
+  position: absolute;
+  font-size: 50px;
+  top: 10%;
+  color: rgb(236, 228, 228);
+  cursor: default;
+}
