@@ -6,6 +6,7 @@ import Message from "../../components/messages/Message.jsx";
 import ChatOnline from "../../components/chatOnline/ChatOnline.jsx";
 import { AuthContext } from "../../components/context/AuthContext.js";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 function Messenger() {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,39 @@ function Messenger() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessages, setNewMessages] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  // const [socket, setSocket] = useState(null);
+  const socket = useRef();
   const scrollRef = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8000");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prevMsgs) => [...prevMsgs, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", user._id);
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(
+        user?.followings.filter((f) => users.some((u) => u.userId === f))
+      );
+    });
+  }, [user]);
+
+  console.log(user);
 
   useEffect(() => {
     async function getConversations() {
@@ -53,6 +86,17 @@ function Messenger() {
       conversationId: currentChat?._id,
       text: newMessages,
     };
+
+    const receiverId = currentChat?.members.find(
+      (member) => member !== user._id
+    );
+
+    socket.current.emit("sendMessage", {
+      senderId: user._id,
+      receiverId,
+      text: newMessages,
+    });
+
     try {
       const res = await axios.post(
         "http://localhost:3001/api/messages/",
@@ -118,7 +162,11 @@ function Messenger() {
 
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline />
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentUser={user}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>
